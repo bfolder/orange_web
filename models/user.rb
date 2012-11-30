@@ -1,6 +1,6 @@
 require 'dm-core'
 require 'dm-validations'
-require "digest/sha2"
+require 'digest/sha2'
 
 # This Hasher module hashes user passwords
 module Hasher

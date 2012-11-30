@@ -1,61 +1,33 @@
-require 'rubygems'
-require 'sinatra'
-require 'dm-core'
-require 'dm-validations'
-require 'dm-migrations'
-require 'logger'
-
-# Setup database (sqlite 3 in this case)
-DataMapper::Logger.new($stdout, :debug)
-DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/orange.sqlite3")
-
-# Load model classes
-require_relative "model/task"
-require_relative "model/user"
-
-DataMapper.finalize
-DataMapper.auto_upgrade!
-
-# Main application class
+# Task controlling & routing
 class Orange < Sinatra::Base
-  ## Logging ##
-  before do
-    puts "Params: #{params}"
-  end
-
   ## Routes ##
-  get '/' do
+  get '/tasks/' do
     tasks = Task.all :order => [:order_index.desc]
-    erb :index, :locals => {:tasks => tasks}
+    erb :index, {:locals => {:tasks => tasks}, :views => './views/'}
   end
 
-  post '/' do
+  post '/tasks/' do
     create_task params
     redirect '/'
   end
 
-  put '/:id' do
+  put '/tasks/:id' do
     update_task params[:id], params
     redirect '/'
   end
 
-  delete '/:id' do
+  delete '/tasks/:id' do
     delete_task params[:id], params
     redirect '/'
   end
 
-  not_found do
-    status 404
-    'not found'
-  end
-
   # Use these to 'fake' PUT / DELETE methods if not available
-  post '/update/:id' do
+  post '/tasks/update/:id' do
     update_task params
     redirect '/'
   end
 
-  get '/delete/:id' do
+  get '/tasks/delete/:id' do
     delete_task params
     redirect '/'
   end
@@ -80,15 +52,5 @@ class Orange < Sinatra::Base
     task = Task.first(:conditions => {:id => Integer(params[:id])})
     return unless task
     task.destroy
-  end
-
-  # Helpers
-  def logged_in?
-    session[:user] != nil
-  end
-
-  def generate_salt
-    random = Random.new
-    Array.new(User.salt.length){random.rand(33...126).chr}.join
   end
 end
