@@ -70,7 +70,7 @@ class Orange < Sinatra::Base
   end
 
   def update_task params = []
-    task = Task.all(:conditions => {:id => Integer(params[:id])}).last
+    task = Task.first(:conditions => {:id => Integer(params[:id])})
     return unless task
     task.done = params[:done] == 'on'
     task.title = params[:title] if(params[:title])
@@ -78,8 +78,9 @@ class Orange < Sinatra::Base
   end
 
   def delete_task params = []
-    task = Task.all(:conditions => {:id => Integer(params[:id])}).last
+    task = Task.first(:conditions => {:id => Integer(params[:id])})
     return unless task
     task.destroy
   end
+
 end
