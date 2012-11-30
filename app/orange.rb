@@ -9,19 +9,18 @@ require 'logger'
 DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/orange.sqlite3")
 
-# Load model class
+# Load model classes
 require_relative "model/task"
+require_relative "model/user"
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
 
 # Main application class
 class Orange < Sinatra::Base
-
-  # Logging
+  ## Logging ##
   before do
-    puts '[Params]'
-    p params
+    puts "Params: #{params}"
   end
 
   ## Routes ##
@@ -83,4 +82,13 @@ class Orange < Sinatra::Base
     task.destroy
   end
 
+  # Helpers
+  def logged_in?
+    session[:user] != nil
+  end
+
+  def generate_salt
+    random = Random.new
+    Array.new(User.salt.length){random.rand(33...126).chr}.join
+  end
 end
