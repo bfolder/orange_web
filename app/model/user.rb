@@ -16,6 +16,7 @@ class User
 
   property :id, Serial
   property :name, String
+  property :email, String
   property :salt, String, :length => 32
   property :hashed_password, String, :length => 64
 
@@ -26,5 +27,9 @@ class User
 
   def auth password
     if hash(password, salt).eql?(hashed_password) then true else false end
+  end
+
+  def formatted_name
+    "#{name} <#{email}>"
   end
 end
