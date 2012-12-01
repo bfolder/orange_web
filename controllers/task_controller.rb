@@ -6,7 +6,7 @@ module TaskController
       redirect '/' unless logged_in?
 
       user = User.first :hashed_password => session[:user]
-      tasks = Task.all :user => user, :order => [:order_index.desc]
+      tasks = Task.all :user => user, :order => [:position.desc]
       erb :index, {:locals => {:tasks => tasks}}
     end
 
@@ -66,8 +66,6 @@ module TaskController
     end
     user = User.first :hashed_password => session[:user]
     user.tasks << task
-    task.save
-    task.order_index = task.id
     task.save
   end
 
