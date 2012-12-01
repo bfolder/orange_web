@@ -4,7 +4,7 @@ require 'digest/sha2'
 
 # This Hasher module hashes user passwords
 module Hasher
-  def hash password, salt
+  def hash_password password, salt
     Digest::SHA2.hexdigest password + salt
   end
 end
@@ -19,11 +19,13 @@ class User
   property :email, String
   property :salt, String, :length => 32
   property :hashed_password, String, :length => 64
+  property :created_at, DateTime
+  property :updated_at, DateTime
 
   has n, :tasks, :required => true
 
-  validates_uniqueness_of :name, :message => "That username has already been taken"
-  validates_length_of :name, :min => 5, :max => 20, :message => "Username too short. Must be between 5 and 20 characters."
+  #validates_uniqueness_of :name, :message => "That username has already been taken"
+  #validates_length_of :name, :min => 5, :max => 20, :message => "Username too short. Must be between 5 and 20 characters."
 
   def auth password
     if hash(password, salt).eql?(hashed_password) then true else false end

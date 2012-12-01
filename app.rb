@@ -34,6 +34,17 @@ class Orange < Sinatra::Base
     puts "Params: #{params}"
   end
 
+  ## Helpers ##
+  helpers do
+    def display_flash
+      if session[:flash]
+        flash = session[:flash]
+        session[:flash] = nil
+        flash
+      end
+    end
+  end
+
   ## Routes ##
   get '/' do
     redirect '/tasks/'
