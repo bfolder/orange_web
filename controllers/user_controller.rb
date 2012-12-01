@@ -2,7 +2,6 @@ require_relative '../models/user'
 
 # User controlling & routing
 module UserController
-
   def self.included(app)
     ## Routes ##
     app.get '/user/signin/' do

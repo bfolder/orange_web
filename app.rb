@@ -39,6 +39,23 @@ class Orange < Sinatra::Base
     #puts "Session: #{session}"
   end
 
+  ## Routes ##
+  get '/' do
+    if logged_in?
+      redirect '/tasks/'
+    else
+      redirect '/user/signin/'
+    end
+  end
+
+  get '/404' do
+    erb :not_found, :layout => false
+  end
+
+  not_found do
+    redirect '/404'
+  end
+  
   ## Helpers ##
   helpers do
     def display_flashes
@@ -70,22 +87,5 @@ class Orange < Sinatra::Base
       session[:flash_error] = nil
       flash_output
     end
-  end
-
-  ## Routes ##
-  get '/' do
-    if logged_in?
-      redirect '/tasks/'
-    else
-      redirect '/user/signin/'
-    end
-  end
-
-  get '/404' do
-    erb :not_found, :layout => false
-  end
-
-  not_found do
-    redirect '/404'
   end
 end
