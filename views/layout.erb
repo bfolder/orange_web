@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <title>Orange - Your easy task list.</title>
-  <link href="/style.css" rel="stylesheet" type="text/css" />
+  <title>Orange - Simple task list</title>
+  <link href="/style/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<div id="header"><a href="<%= request.base_url %>" title="Home"><img id="logo" src="/images/logo-big.png" alt="Orange - Simple task list"/></a></div>
     <%= yield %>
 </body>
 </html>

@@ -1,0 +1,172 @@
+@font-face
+{
+    font-family: "Aller";
+    src: url('Aller_Rg.ttf'),
+}
+
+@font-face {
+    font-family: "Aller Bold";
+    src: url("Aller_Bd.ttf");
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#wrap * {
+    border: none;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: #fafafb;
+    font-family: "Aller", "Helvetica", "Arial", "Verdana", sans-serif;
+    font-size: 17px;
+    margin: 0px;
+    padding: 0px;
+    font-style: normal;
+    text-align: center;
+    color: #3a3a3b;
+}
+
+h1 {
+    font-size: 26px;
+    font-family: "Aller", "Helvetica", "Arial", "Verdana", sans-serif;
+    font-weight: bold;
+    color: #3a3a3b;
+    margin-bottom: 15px;
+}
+h2 {
+    font-size: 14px;
+}
+
+h4 {
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-top: 50px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #3a3a3b;
+}
+
+#footer a {
+    font-style: normal;
+    font-weight: normal;
+    color: #b7b7bd;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#header {
+    height: 100px;
+    background-color: #3a3a3b;
+}
+
+#wrap {
+    text-align: left;
+    position: absolute;
+    top: 140px;
+    left: 0px;
+    width: 100%;
+    height: 1px;
+    overflow: visible;
+    visibility: visible;
+    display: block
+}
+
+#logo {
+    height: 80px;
+    width: 320px;
+    margin-top: 10px;
+    margin-left: -192px;
+}
+
+#content-box {
+    width: 360px;
+    margin-left: -180px;
+    position: absolute;
+    left: 50%;
+    visibility: visible
+}
+
+#footer {
+    font-size: 15px;
+    position: relative;
+    height: 50px;
+    margin-top: 55px;
+    padding-top: 10px;
+    border-top: 1px solid #d2d2d9;
+    color: #b7b7bd;
+}
+
+#footer span {
+    position: absolute;
+    right: 0px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    font-size: 17px;
+    height: 35px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input.input {
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #eee;
+    width: 100%;
+    padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+input.submit {
+    width: 100px;
+    background-color: #3a3a3b;
+    color: #fafafb;
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+input.submit:hover {
+    background-color: #0c0c0d;
+}
+
+.flash {
+    font-size: 13px;
+    margin: 10px 0px 5px 0px;
+    background-color: white;
+    padding: 15px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 338px;
+}
+
+.error {
+    color: #d80000;
+    background-color: #fef1f1;
+}
+
+.flash ul {
+    list-style-position: inside;
+}
+
+.flash ul li {
+    margin-bottom: 2px;
+}

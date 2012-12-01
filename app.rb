@@ -41,12 +41,34 @@ class Orange < Sinatra::Base
 
   ## Helpers ##
   helpers do
-    def display_flash
-      if session[:flash]
-        flash = session[:flash]
-        session[:flash] = nil
-        flash
+    def display_flashes
+      flashes = [session[:flash], session[:flash_error]]
+      flash_output = ''
+      flashes.each_with_index do |flash, index|
+        if flash
+          flash_message = flash
+          flash_message = '<ul>'
+          if flash.respond_to? :each
+            flash.each do |message|
+              flash_message << "<li>#{message}</li>"
+            end
+          else
+            flash_message << "<li>#{flash}</li>"
+          end
+
+          flash_message << '</ul>'
+          addclass = ''
+
+          if index == 1
+            addclass = 'error'
+          end
+
+          flash_output << "<div class='flash #{addclass}'>#{flash_message}</div>"
+        end
       end
+      session[:flash] = nil
+      session[:flash_error] = nil
+      flash_output
     end
   end
 
@@ -55,7 +77,7 @@ class Orange < Sinatra::Base
     if logged_in?
       redirect '/tasks/'
     else
-      redirect '/user/login/'
+      redirect '/user/signin/'
     end
   end
 

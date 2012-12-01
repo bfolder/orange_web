@@ -5,8 +5,8 @@ module UserController
 
   def self.included(app)
     ## Routes ##
-    app.get '/user/login/' do
-      erb :login
+    app.get '/user/signin/' do
+      erb :signin
     end
 
     app.get '/user/logout/' do
@@ -23,7 +23,7 @@ module UserController
       user = User.first(:name => params[:username])
 
       if !user
-        session[:flash] = "User doesn't exist."
+        session[:flash_error] = "User doesn't exist."
         redirect "/"
       end
 
@@ -33,10 +33,10 @@ module UserController
         if user.save
           session[:user] = user.hashed_password
         else
-          session[:flash] = "There was an error logging in, please try again."
+          session[:flash_error] = "There was an error logging in, please try again."
         end
       else
-        session[:flash] = "Incorrect Password."
+        session[:flash_error] = "Incorrect Password."
       end
 
       redirect '/'
@@ -56,21 +56,21 @@ module UserController
     flash = validate_signup username, password, password_again, email
 
     unless flash.empty?
-      session[:flash] = flash.join('<br />')
+      session[:flash_error] = flash
       redirect '/signup/'
     end
 
     user = User.first(:name => username)
 
     if user
-      session[:flash] = "That username has already been taken."
+      session[:flash_error] = "That username has already been taken."
       redirect '/signup/'
     end
 
     user = User.first(:email => email)
 
     if user
-      session[:flash] = "That email address is already in our database."
+      session[:flash_error] = "That email address is already in our database."
       redirect '/signup/'
     end
 
@@ -91,7 +91,7 @@ module UserController
       session[:user] = user.hashed_password
       redirect "/"
     else
-      session[:flash] = "Signup failed, please try again."
+      session[:flash_error] = "Signup failed, please try again."
       redirect "/"
     end
   end

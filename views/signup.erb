@@ -1,11 +1,17 @@
-<h1>Signup</h1>
-<p><%= display_flash %></p>
-<form method="post" action="/user/create/">
-<p>
-    Email: <br /><input name="email" size="40" /><br />
-    Username: <br /><input name="username" size="40" /><br />
-    Password: <br /><input name="password" size="40" type="password" /><br />
-    Password Verification: <br /><input name="password_again" size="40" type="password" /><br /><br />
-    <input type="submit" value="Create" />
-</p>
-</form>
+<div id="wrap">
+  <div id="content-box">
+    <h1>Sign Up</h1>
+    <%= display_flashes %>
+    <form method="post" action="/user/create/" id="signup">
+      <fieldset>
+        <label for="username">Email</label><input style="margin-bottom: 15px;" class="input" name="email" size="40" /><br />
+        <label for="username">Username</label><input style="margin-bottom: 15px;" class="input" name="username" size="40" /><br />
+        <label for="password">Password</label><input class="input" name="password" size="40" type="password" /><br /><br />
+        <label for="password">Password Verification</label><input class="input" name="password_again" size="40" type="password" /><br /><br />
+        <input class="submit" type="submit" value="Sign Up" />
+      </fieldset>
+      <p>Already have an account? Sign in <a href="../">here</a>.</p>
+    </form>
+    <div id="footer">© 2012 <a href="http://www.boxedfolder.com" title="boxedfolder.com">boxedfolder.com</a> <span><a href="mailto:mail@boxedfolder.com" title="Contact">Contact</a></span></div>
+  </div>
+</div>

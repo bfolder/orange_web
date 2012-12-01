@@ -54,7 +54,7 @@ module TaskController
     if params[:title] && params[:title].length > 0
       flash = "The task has no title."
     end
-    session[:flash] = flash
+    session[:flash_error] = flash
   end
 
   ## Data Methods ##
@@ -85,7 +85,7 @@ module TaskController
   def delete_task params = []
     task = Task.first(:conditions => {:id => Integer(params[:id])})
     unless task
-      session[:flash] = "Couldn't find task. Try again later."
+      session[:flash_error] = "Couldn't find task. Try again later."
       return
     end
     task.destroy
