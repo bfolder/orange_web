@@ -2,7 +2,7 @@ require_relative '../models/user'
 
 # User controlling & routing
 module UserController
-  include Hasher
+  include Hasher, Mailer
 
   def self.included(app)
     ## Routes ##
@@ -12,7 +12,7 @@ module UserController
 
     app.get '/user/logout/' do
       session[:user] = nil
-      session[:flash] = "You have logged out successfully"
+      session[:flash] = "You have logged out successfully."
       redirect '/'
     end
 
@@ -24,7 +24,7 @@ module UserController
       user = User.first(:name => params[:username])
 
       if !user
-        session[:flash] = "User doesn't exist"
+        session[:flash] = "User doesn't exist."
         redirect "/"
       end
 
@@ -64,8 +64,15 @@ module UserController
     user = User.first(:name => username)
 
     if user
-      session[:flash] = "That username has been taken"
-      redirect "/signup"
+      session[:flash] = "That username has already been taken."
+      redirect '/signup/'
+    end
+
+    user = User.first(:email => email)
+
+    if user
+      session[:flash] = "That email address is already in our database."
+      redirect '/signup/'
     end
 
     salt = generate_salt
@@ -80,11 +87,12 @@ module UserController
     )
 
     if user.save
-      session[:flash] = "Signed up successfully"
+      send_to_user user, "Hello #{user.name}.You successfully signed up to Orange.", "Your Orange account."
+      session[:flash] = "Signed up successfully."
       session[:user] = user.hashed_password
       redirect "/"
     else
-      session[:flash] = "Signup failed, please try again"
+      session[:flash] = "Signup failed, please try again."
       redirect "/"
     end
   end

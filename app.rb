@@ -4,12 +4,13 @@ require 'dm-core'
 require 'dm-validations'
 require 'dm-migrations'
 require 'logger'
+
 # Load 'controllers'
 require './controllers/task_controller'
 require './controllers/user_controller'
 
 # Setup database (sqlite 3 in this case)
-DataMapper::Logger.new($stdout, :debug)
+#DataMapper::Logger.new(STDOUT, :debug)
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/orange.sqlite3")
 
 # Load model classes
@@ -25,9 +26,11 @@ class Orange < Sinatra::Base
 
   # Configure environment
   enable :sessions
+  set :logger, Logger.new(STDOUT)
   set :root, File.dirname(__FILE__)
   set :views, './views/'
   set :public_folder, './public/'
+  set :email, 'admin@orangeapp.com'
 
   ## Logging ##
   before do

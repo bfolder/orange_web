@@ -1,12 +1,29 @@
 require 'dm-core'
 require 'dm-validations'
 require 'digest/sha2'
+require 'mail'
 
 # This Hasher module - hashes user passwords
 module Hasher
   def hash_password password, salt
     Digest::SHA2.hexdigest password + salt
   end
+end
+
+# Check if this works on your server
+module Mailer
+    def send_to_user user, message, subject
+      from_mail = settings.email
+      to_mail = user.email
+
+      mail = Mail.new do
+        from from_mail
+        to to_mail
+        subject subject
+        body message
+      end
+      mail.deliver
+    end
 end
 
 # User class representing a single user of the application
