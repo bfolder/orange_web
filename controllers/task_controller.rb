@@ -1,38 +1,40 @@
 # Task controlling & routing
-class Orange < Sinatra::Base
-  ## Routes ##
-  get '/tasks/' do
-    tasks = Task.all :order => [:order_index.desc]
-    erb :index, {:locals => {:tasks => tasks}, :views => './views/'}
+module TaskController
+  def self.included(app)
+    ## Routes ##
+    app.get '/tasks/' do
+      tasks = Task.all :order => [:order_index.desc]
+      erb :index, {:locals => {:tasks => tasks}}
+    end
+
+    app.post '/tasks/' do
+      create_task params
+      redirect '/'
+    end
+
+    app.put '/tasks/:id' do
+      update_task params
+      redirect '/'
+    end
+
+    app.delete '/tasks/:id' do
+      delete_task params
+      redirect '/'
+    end
+
+    # Use these to 'fake' PUT / DELETE methods if not available
+    app.post '/tasks/update/:id' do
+      update_task params
+      redirect '/'
+    end
+
+    app.get '/tasks/delete/:id' do
+      delete_task params
+      redirect '/'
+    end
   end
 
-  post '/tasks/' do
-    create_task params
-    redirect '/'
-  end
-
-  put '/tasks/:id' do
-    update_task params[:id], params
-    redirect '/'
-  end
-
-  delete '/tasks/:id' do
-    delete_task params[:id], params
-    redirect '/'
-  end
-
-  # Use these to 'fake' PUT / DELETE methods if not available
-  post '/tasks/update/:id' do
-    update_task params
-    redirect '/'
-  end
-
-  get '/tasks/delete/:id' do
-    delete_task params
-    redirect '/'
-  end
-
-  ## Methods ##
+  ## Data Methods ##
   def create_task params = []
     task = Task.create(:title => params[:title], :created_at => Time.now, :updated_at => Time.now)
     return unless task

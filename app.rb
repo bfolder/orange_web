@@ -4,7 +4,7 @@ require 'dm-core'
 require 'dm-validations'
 require 'dm-migrations'
 require 'logger'
-
+# Load 'controllers'
 require './controllers/task_controller'
 require './controllers/user_controller'
 
@@ -21,6 +21,14 @@ DataMapper.auto_upgrade!
 
 # Main application class
 class Orange < Sinatra::Base
+  include TaskController, UserController
+
+  # Configure environment
+  enable :sessions
+  set :root, File.dirname(__FILE__)
+  set :views, './views/'
+  set :public, './public/'
+
   ## Logging ##
   before do
     puts "Params: #{params}"

@@ -1,7 +1,21 @@
 # User controlling & routing
-class Orange < Sinatra::Base
-  ## Routes ##
-  get '/users/' do
+module UserController
+  def self.included(app)
+    ## Routes ##
+    app.get '/user/login/' do
+    end
+
+    app.get '/user/logout/' do
+    end
+
+    app.get '/user/create/' do
+    end
+
+    app.get '/user/auth/' do
+    end
+
+    app.get '/signup/' do
+    end
   end
 
   ## Helpers ##
