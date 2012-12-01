@@ -11,6 +11,7 @@ module UserController
 
     app.get '/user/logout/' do
       session[:user] = nil
+      session[:flash] = "You have logged out successfully"
       redirect '/'
     end
 
@@ -32,7 +33,7 @@ module UserController
     password = params[:password]
     username = params[:username]
     email = params[:email]
-    flash = validate
+    flash = validate_signup
 
     unless flash.empty?
       session[:flash] = flash.join('<br />')
@@ -67,7 +68,7 @@ module UserController
   end
 
   ## Helpers ##
-  def validate
+  def validate_signup
     flash = []
 
     if !password || password.length == 0

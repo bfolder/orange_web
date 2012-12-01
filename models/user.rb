@@ -2,7 +2,7 @@ require 'dm-core'
 require 'dm-validations'
 require 'digest/sha2'
 
-# This Hasher module hashes user passwords
+# This Hasher module - hashes user passwords
 module Hasher
   def hash_password password, salt
     Digest::SHA2.hexdigest password + salt

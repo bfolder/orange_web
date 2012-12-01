@@ -50,8 +50,11 @@ class Orange < Sinatra::Base
     redirect '/tasks/'
   end
 
+  get '/404' do
+    erb :not_found, :layout => false
+  end
+
   not_found do
-    status 404
-    'not found'
+    redirect '/404'
   end
 end

@@ -34,17 +34,33 @@ module TaskController
     end
   end
 
+  ## Helpers
+
+  def task_warning params
+    flash = "Couldn't find task. Try again later."
+    if params[:title] && params[:title].length > 0
+      flash = "The task has no title."
+    end
+    session[:flash] = flash
+  end
+
   ## Data Methods ##
   def create_task params = []
     task = Task.create(:title => params[:title], :created_at => Time.now, :updated_at => Time.now)
-    return unless task
+    unless task
+      task_warning params
+      return
+    end
     task.order_index = task.id
     task.save
   end
 
   def update_task params = []
     task = Task.first(:conditions => {:id => Integer(params[:id])})
-    return unless task
+    unless task
+      task_warning params
+      return
+    end
     task.done = params[:done] == 'on'
     task.title = params[:title] if(params[:title])
     task.save
@@ -52,7 +68,10 @@ module TaskController
 
   def delete_task params = []
     task = Task.first(:conditions => {:id => Integer(params[:id])})
-    return unless task
+    unless task
+      session[:flash] = "Couldn't find task. Try again later."
+      return
+    end
     task.destroy
   end
 end
