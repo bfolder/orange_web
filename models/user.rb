@@ -1,35 +1,10 @@
 require 'dm-core'
 require 'dm-validations'
-require 'digest/sha2'
-require 'mail'
-
-# This Hasher module - hashes user passwords
-module Hasher
-  def hash_password password, salt
-    Digest::SHA2.hexdigest password + salt
-  end
-end
-
-# Check if this works on your server
-module Mailer
-    def send_to_user user, message, subject
-      from_mail = settings.email
-      to_mail = user.email
-
-      mail = Mail.new do
-        from from_mail
-        to to_mail
-        subject subject
-        body message
-      end
-      mail.deliver
-    end
-end
+require_relative 'utils/utils'
 
 # User class representing a single user of the application
 class User
   include DataMapper::Resource
-  include Hasher
 
   property :id, Serial
   property :name, String
@@ -45,7 +20,7 @@ class User
   #validates_length_of :name, :min => 5, :max => 20, :message => "Username too short. Must be between 5 and 20 characters."
 
   def auth password
-    if hash_password(password, salt).eql?(hashed_password) then true else false end
+    if Utils::Hasher.hash_password(password, salt).eql?(hashed_password) then true else false end
   end
 
   def formatted_name

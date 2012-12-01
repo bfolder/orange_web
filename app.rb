@@ -31,6 +31,7 @@ class Orange < Sinatra::Base
   set :views, './views/'
   set :public_folder, './public/'
   set :email, 'admin@orangeapp.com'
+  set :send_signup_mail, true
 
   ## Logging ##
   before do

@@ -2,7 +2,6 @@ require_relative '../models/user'
 
 # User controlling & routing
 module UserController
-  include Hasher, Mailer
 
   def self.included(app)
     ## Routes ##
@@ -76,7 +75,7 @@ module UserController
     end
 
     salt = generate_salt
-    hashed_password = hash_password password, salt
+    hashed_password = Utils::Hasher.hash_password password, salt
     user = User.new(
       :name => username,
       :email => email,
@@ -87,7 +86,7 @@ module UserController
     )
 
     if user.save
-      send_to_user user, "Hello #{user.name}.You successfully signed up to Orange.", "Your Orange account."
+      Utils::Mailer.send_to_user user, "Hello #{user.name}. You successfully signed up to Orange.", "Your Orange account", settings.email if settings.send_signup_mail
       session[:flash] = "Signed up successfully."
       session[:user] = user.hashed_password
       redirect "/"
