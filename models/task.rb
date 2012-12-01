@@ -12,7 +12,7 @@ class Task
   property :created_at, DateTime
   property :updated_at, DateTime
 
-  belongs_to :user
+  belongs_to :user, :required => true
 
   #validates_presence_of :title
 end

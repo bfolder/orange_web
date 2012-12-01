@@ -49,7 +49,6 @@ class Orange < Sinatra::Base
   ## Routes ##
   get '/' do
     if logged_in?
-      @user = User.first(:hashed_password => session[:user])
       redirect '/tasks/'
     else
       redirect '/user/login/'

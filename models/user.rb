@@ -22,7 +22,7 @@ class User
   property :created_at, DateTime
   property :updated_at, DateTime
 
-  has n, :tasks, :required => true
+  has n, :tasks
 
   #validates_uniqueness_of :name, :message => "That username has already been taken"
   #validates_length_of :name, :min => 5, :max => 20, :message => "Username too short. Must be between 5 and 20 characters."

@@ -51,9 +51,10 @@ module UserController
   ## Database Methods ##
   def create_user params
     password = params[:password]
+    password_again = params[:password_again]
     username = params[:username]
     email = params[:email]
-    flash = validate_signup username, password, email
+    flash = validate_signup username, password, password_again, email
 
     unless flash.empty?
       session[:flash] = flash.join('<br />')
@@ -89,11 +90,15 @@ module UserController
   end
 
   ## Helpers ##
-  def validate_signup username, password, email
+  def validate_signup username, password, password_again, email
     flash = []
 
     if !password || password.length == 0
       flash << "Please provide a password."
+    end
+
+    if password != password_again
+      flash << "Passwords do not match. Please try again."
     end
 
     if !username || username.length == 0

@@ -5,6 +5,6 @@
 <h1>My tasks</h1>
 
 <% tasks.each do |task|%>
-     <div><form action="update/<%= task.id %>" method="post"><input onclick="this.form.submit();" type="checkbox" name="done" <%= "checked" if task.done %>><b> <%= task.title %></b> order: <i><%= task.id.to_s %></i></form></div>
+     <div><form action="update/<%= task.id %>" method="post"><input onclick="this.form.submit();" type="checkbox" name="done" <%= "checked" if task.done %>><b> <%= task.title %></b> order: <i><%= task.order_index.to_s %></i></form></div>
 <% end %>
 </div>
