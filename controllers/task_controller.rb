@@ -79,6 +79,7 @@ module TaskController
     end
     task.done = params[:done] == 'on'
     task.title = params[:title] if(params[:title])
+    task.updated_at = Time.now
     task.save
   end
 
