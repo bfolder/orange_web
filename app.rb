@@ -27,11 +27,12 @@ class Orange < Sinatra::Base
   enable :sessions
   set :root, File.dirname(__FILE__)
   set :views, './views/'
-  set :public, './public/'
+  set :public_folder, './public/'
 
   ## Logging ##
   before do
     puts "Params: #{params}"
+    #puts "Session: #{session}"
   end
 
   ## Helpers ##
@@ -47,7 +48,12 @@ class Orange < Sinatra::Base
 
   ## Routes ##
   get '/' do
-    redirect '/tasks/'
+    if logged_in?
+      @user = User.first(:hashed_password => session[:user])
+      redirect '/tasks/'
+    else
+      redirect '/user/login/'
+    end
   end
 
   get '/404' do

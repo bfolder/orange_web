@@ -28,7 +28,7 @@ class User
   #validates_length_of :name, :min => 5, :max => 20, :message => "Username too short. Must be between 5 and 20 characters."
 
   def auth password
-    if hash(password, salt).eql?(hashed_password) then true else false end
+    if hash_password(password, salt).eql?(hashed_password) then true else false end
   end
 
   def formatted_name

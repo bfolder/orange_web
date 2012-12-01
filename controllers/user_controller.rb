@@ -7,6 +7,7 @@ module UserController
   def self.included(app)
     ## Routes ##
     app.get '/user/login/' do
+      erb :login
     end
 
     app.get '/user/logout/' do
@@ -19,7 +20,26 @@ module UserController
       create_user params
     end
 
-    app.get '/user/auth/' do
+    app.post '/user/auth/' do
+      user = User.first(:name => params[:username])
+
+      if !user
+        session[:flash] = "User doesn't exist"
+        redirect "/"
+      end
+
+      auth = user.auth(params[:password])
+
+      if auth
+        if user.save
+          session[:user] = user.hashed_password
+        else
+          session[:flash] = "There was an error logging in, please try again."
+        end
+      else
+        session[:flash] = "Incorrect Password."
+      end
+
       redirect '/'
     end
 
@@ -33,7 +53,7 @@ module UserController
     password = params[:password]
     username = params[:username]
     email = params[:email]
-    flash = validate_signup
+    flash = validate_signup username, password, email
 
     unless flash.empty?
       session[:flash] = flash.join('<br />')
@@ -50,7 +70,8 @@ module UserController
     salt = generate_salt
     hashed_password = hash_password password, salt
     user = User.new(
-      :name => params[:name],
+      :name => username,
+      :email => email,
       :salt => salt,
       :hashed_password => hashed_password,
       :created_at => Time.now,
@@ -68,7 +89,7 @@ module UserController
   end
 
   ## Helpers ##
-  def validate_signup
+  def validate_signup username, password, email
     flash = []
 
     if !password || password.length == 0

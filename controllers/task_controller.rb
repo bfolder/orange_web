@@ -3,32 +3,44 @@ module TaskController
   def self.included(app)
     ## Routes ##
     app.get '/tasks/' do
+      redirect '/' unless logged_in?
+
       tasks = Task.all :order => [:order_index.desc]
       erb :index, {:locals => {:tasks => tasks}}
     end
 
     app.post '/tasks/' do
+      return unless logged_in?
+
       create_task params
       redirect '/'
     end
 
     app.put '/tasks/:id' do
+      redirect '/' unless logged_in?
+
       update_task params
       redirect '/'
     end
 
     app.delete '/tasks/:id' do
+      redirect '/' unless logged_in?
+
       delete_task params
       redirect '/'
     end
 
     # Use these to 'fake' PUT / DELETE methods if not available
     app.post '/tasks/update/:id' do
+      redirect '/' unless logged_in?
+
       update_task params
       redirect '/'
     end
 
     app.get '/tasks/delete/:id' do
+      redirect '/' unless logged_in?
+
       delete_task params
       redirect '/'
     end
