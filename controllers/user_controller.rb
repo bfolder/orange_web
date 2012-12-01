@@ -5,6 +5,7 @@ module UserController
   def self.included(app)
     ## Routes ##
     app.get '/user/signin/' do
+      redirect '/' if logged_in?
       erb :signin
     end
 
