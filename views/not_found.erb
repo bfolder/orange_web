@@ -3,9 +3,18 @@
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <title>404 | Orange - Simple task list</title>
-  <link href="/style.css" rel="stylesheet" type="text/css" />
+  <link href="/style/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-Not found :(
+<div id="header"><a href="<%= request.base_url %>" title="Home"><img id="logo" src="/images/logo-big.png" alt="Orange - Simple task list"/></a></div>
+<div id="wrap" class="not-found">
+  <div id="content-box">
+    <h1>404</h1>
+    <img id="splash" src="/images/big-orange.png" alt="Orange - Simple task list"/>
+    <p>Not found. Go back <a href="../" title="Back">here</a>.</p>
+
+    <div id="footer" style="text-align: left;">© 2012 <a href="http://www.boxedfolder.com" title="boxedfolder.com">boxedfolder.com</a> <span><a href="mailto:mail@boxedfolder.com" title="Contact">Contact</a></span></div>
+  </div>
+</div>
 </body>
 </html>

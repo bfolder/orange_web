@@ -1,10 +1,16 @@
-<a href="/user/logout/">Logout</a>
-<form method="post">
-<p><input name="title" size="40"><input type="submit" value="Create"></p>
-</form>
-<h1>My tasks</h1>
-
-<% tasks.each do |task|%>
-     <div><form action="update/<%= task.id %>" method="post"><input onclick="this.form.submit();" type="checkbox" name="done" <%= "checked" if task.done %>><b> <%= task.title %></b> order: <i><%= task.position.to_s %></i></form></div>
-<% end %>
+<div id="wrap">
+<div id="content-box">
+    <h1 id="tasks">Tasks<span class="small-menu-item"><a href="#" class="clear-checked">Clear checked</a></span><span id="small-menu"><span class="small-menu-item"><a href="/user/logout/">Account</a></span><span class="small-menu-item"><a href="/user/logout/">Logout</a></span></span></h1>
+    <form method="post">
+      <fieldset>
+        <p style="position: relative;"><input class="input" id="create" name="title" size="40"><input class="submit" id="create-button" type="submit" value="Create"></p>
+      </fieldset>
+    </form>
+  <div id="task-block">
+    <% tasks.each do |task|%>
+        <div class="task <%= if task.done then "checked" end %>"><form action="update/<%= task.id %>" method="post"><h3><%= task.title %></h3></form></div>
+    <% end %>
+  </div>
+    <div id="footer">© 2012 <a href="http://www.boxedfolder.com" title="boxedfolder.com">boxedfolder.com</a> <span><a href="mailto:mail@boxedfolder.com" title="Contact">Contact</a></span></div>
+</div>
 </div>

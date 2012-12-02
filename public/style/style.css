@@ -41,6 +41,11 @@ h1 {
     color: #3a3a3b;
     margin-bottom: 30px;
 }
+
+h1#tasks {
+    postion: relative;
+}
+
 h2 {
     font-size: 14px;
 }
@@ -99,11 +104,21 @@ a:hover {
     visibility: visible
 }
 
+#small-menu {
+    position: absolute;
+    right: 0px;
+}
+
+.small-menu-item {
+    font-size: 12px;
+    margin-left: 10px;
+}
+
 #footer {
     font-size: 15px;
     position: relative;
     height: 50px;
-    margin-top: 55px;
+    margin-top: 45px;
     padding-top: 10px;
     border-top: 1px solid #d2d2d9;
     color: #b7b7bd;
@@ -131,10 +146,9 @@ input.input {
     -moz-border-radius: 4px;
     border-radius: 4px;
     background-color: #eee;
-    width: 100%;
-    padding: 1px;
     padding-left: 4px;
     padding-right: 4px;
+    width: 100%;
 }
 
 input.submit {
@@ -170,4 +184,89 @@ input.submit:hover {
 
 .flash ul li {
     margin-bottom: 2px;
+}
+
+.not-found h1 {
+    color: #dededf;
+    font-size: 56px;
+    margin-bottom: 5px;
+}
+
+.not-found #content-box {
+    margin-top: 35px;
+}
+
+.not-found #footer {
+    margin-top: 50px;
+}
+
+.not-found #splash {
+    margin-top: 0px;
+}
+
+.not-found #content-box {
+    text-align: center;
+}
+
+.not-found p {
+    margin-top: 5px;
+    color: #dededf;
+    font-size: 27px;
+}
+
+.not-found p a {
+    color: #bdbdbf;
+}
+
+#create {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 35px;
+    width: 260px;
+    display: inline;
+    margin: 0px;
+}
+
+#create-button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 35px;
+    display: inline;
+    width: 80px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#task-block {
+    margin-top: 80px;
+}
+
+.task {
+    cursor: move;
+    background-color: #707073;
+    margin-bottom: 4px;
+    height: 19px;
+    color: #fafafb;
+    font-size: 15px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 13px;
+}
+
+.task h3 {
+    font-weight: normal;
+    font-size: 15px;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.checked {
+    opacity: 0.25;
+    color: black;
+    filter:alpha(opacity=35);
+    filter: “alpha(opacity=35)”;
 }
