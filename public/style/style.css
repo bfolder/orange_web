@@ -241,6 +241,7 @@ input.submit:hover {
 
 #task-block {
     margin-top: 80px;
+    list-style-type: none;
 }
 
 .task {

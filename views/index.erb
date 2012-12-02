@@ -6,11 +6,11 @@
         <p style="position: relative;"><input class="input" id="create" name="title" size="40"><input class="submit" id="create-button" type="submit" value="Create"></p>
       </fieldset>
     </form>
-  <div id="task-block">
+  <ul id="task-block">
     <% tasks.each do |task|%>
-        <div class="task <%= if task.done then "checked" end %>"><form action="update/<%= task.id %>" method="post"><h3><%= task.title %></h3></form></div>
+        <li id="<%= task.id %>" class="task <%= if task.done then "checked" end %>"><h3><%= task.title %></h3></li>
     <% end %>
-  </div>
-    <div id="footer">© 2012 <a href="http://www.boxedfolder.com" title="boxedfolder.com">boxedfolder.com</a> <span><a href="mailto:mail@boxedfolder.com" title="Contact">Contact</a></span></div>
+  </ul>
+   <div id="footer">© 2012 <a href="http://www.boxedfolder.com" title="boxedfolder.com">boxedfolder.com</a> <span><a href="mailto:mail@boxedfolder.com" title="Contact">Contact</a></span></div>
 </div>
 </div>
