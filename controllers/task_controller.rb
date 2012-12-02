@@ -75,6 +75,9 @@ module TaskController
       task_warning params
       return
     end
+
+    position =  Integer(params[:position])
+    task.move(position) if position != task.position
     task.done = params[:done] == 'on'
     task.title = params[:title] if(params[:title])
     task.updated_at = Time.now
