@@ -226,6 +226,7 @@ input.submit:hover {
     width: 260px;
     display: inline;
     margin: 0px;
+    border: 1px solid #d3d3d3;
 }
 
 #create-button {
@@ -242,6 +243,10 @@ input.submit:hover {
 #task-block {
     margin-top: 80px;
     list-style-type: none;
+}
+
+#task-block li{
+    border: 1px solid black;
 }
 
 .task {
@@ -270,4 +275,7 @@ input.submit:hover {
     color: black;
     filter:alpha(opacity=35);
     filter: “alpha(opacity=35)”;
+}
+
+.ui-sortable-helper {
 }
