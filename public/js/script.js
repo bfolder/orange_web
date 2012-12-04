@@ -13,6 +13,15 @@ $(function() {
         }
     });
 
+    $(".clear-checked").click(function(){
+        $(".checked").slideUp().fadeOut(function(){
+            $.ajax({
+                type: "GET",
+                url: "clear/"
+            });
+        });
+    });
+
     $(".checkbox").click(function(){
         var isDone = "on";
         var id = this.parentNode.id;

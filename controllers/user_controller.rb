@@ -22,7 +22,7 @@ module UserController
     app.post '/user/auth/' do
       user = User.first(:name => params[:username])
 
-      if !user
+      unless user
         session[:flash_error] = "User doesn't exist."
         redirect "/"
       end
@@ -46,8 +46,6 @@ module UserController
       erb :signup
     end
   end
-
-  private
 
   ## Database Methods ##
   def create_user(params)

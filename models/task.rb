@@ -14,5 +14,6 @@ class Task
 
   belongs_to :user, :required => true
   is :list, :scope => :user_id
-  #validates_presence_of :title
+
+  validates_presence_of :title
 end

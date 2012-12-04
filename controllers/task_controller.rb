@@ -54,8 +54,6 @@ module TaskController
     end
   end
 
-  private
-
   ## Helpers
   def task_warning(params)
     flash = "Couldn't find task. Try again later."
@@ -69,7 +67,7 @@ module TaskController
   def create_task(params = [])
     task = Task.new(:title => params[:title], :created_at => Time.now, :updated_at => Time.now)
     unless task
-      task_warning params
+      task_warning(params)
       return
     end
     user = User.first :hashed_password => session[:user]
