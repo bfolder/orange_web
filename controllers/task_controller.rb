@@ -13,21 +13,21 @@ module TaskController
     app.post '/tasks/' do
       return unless logged_in?
 
-      create_task params
+      create_task(params)
       redirect '/'
     end
 
     app.put '/tasks/:id' do
       redirect '/' unless logged_in?
 
-      update_task params
+      update_task(params)
       redirect '/'
     end
 
     app.delete '/tasks/:id' do
       redirect '/' unless logged_in?
 
-      delete_task params
+      delete_task(params)
       redirect '/'
     end
 
@@ -35,14 +35,21 @@ module TaskController
     app.post '/tasks/update/:id' do
       redirect '/' unless logged_in?
 
-      update_task params
+      update_task(params)
       redirect '/'
     end
 
     app.get '/tasks/delete/:id' do
       redirect '/' unless logged_in?
 
-      delete_task params
+      delete_task(params)
+      redirect '/'
+    end
+
+    app.get '/tasks/clear/' do
+      return unless logged_in?
+
+      clear_tasks
       redirect '/'
     end
   end
@@ -93,5 +100,9 @@ module TaskController
       return
     end
     task.destroy
+  end
+
+  def clear_tasks
+    Task.all(:conditions => {:done => true}).each(&:destroy)
   end
 end

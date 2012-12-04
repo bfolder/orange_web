@@ -1,6 +1,6 @@
 <div id="wrap">
 <div id="content-box">
-    <h1 id="tasks">Tasks<span class="small-menu-item"><a href="#" class="clear-checked">Clear checked</a></span><span id="small-menu"><span class="small-menu-item"><a href="/user/logout/">Account</a></span><span class="small-menu-item"><a href="/user/logout/">Logout</a></span></span></h1>
+    <h1 id="tasks">Tasks<span class="small-menu-item"><a href="/tasks/clear/" class="clear-checked">Clear checked</a></span><span id="small-menu"><span class="small-menu-item"><a href="/user/logout/">Account</a></span><span class="small-menu-item"><a href="/user/logout/">Logout</a></span></span></h1>
     <form method="post">
       <fieldset>
         <p style="position: relative;"><input class="input" id="create" name="title" size="40"><input style="border: 1px solid black;" class="submit" id="create-button" type="submit" value="Create"></p>
@@ -8,7 +8,7 @@
     </form>
   <ul id="task-block">
     <% tasks.each do |task|%>
-        <li id="<%= task.id %>" class="task <%= if task.done then "checked" end %>"><h3><%= task.title %></h3></li>
+        <li id="<%= task.id %>" class="task <%= if task.done then "checked" end %>"><span class="checkbox"></span><h3><%= task.title %></h3></li>
     <% end %>
   </ul>
    <div id="footer">© 2012 <a href="http://www.boxedfolder.com" title="boxedfolder.com">boxedfolder.com</a> <span><a href="mailto:mail@boxedfolder.com" title="Contact">Contact</a></span></div>
