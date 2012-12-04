@@ -16,7 +16,7 @@ module UserController
     end
 
     app.post '/user/create/' do
-      create_user params
+      create_user(params)
     end
 
     app.post '/user/auth/' do
@@ -47,13 +47,15 @@ module UserController
     end
   end
 
+  private
+
   ## Database Methods ##
-  def create_user params
+  def create_user(params)
     password = params[:password]
     password_again = params[:password_again]
     username = params[:username]
     email = params[:email]
-    flash = validate_signup username, password, password_again, email
+    flash = validate_signup(username, password, password_again, email)
 
     unless flash.empty?
       session[:flash_error] = flash
@@ -97,7 +99,7 @@ module UserController
   end
 
   ## Helpers ##
-  def validate_signup username, password, password_again, email
+  def validate_signup(username, password, password_again, email)
     flash = []
 
     if !password || password.length == 0

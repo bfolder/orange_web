@@ -4,14 +4,14 @@ require 'mail'
 module Utils
 # This Hasher module - hashes user passwords
   module Hasher
-    def Hasher.hash_password password, salt
+    def Hasher.hash_password(password, salt)
       Digest::SHA2.hexdigest password + salt
     end
   end
 
 # Check if this works on your server
   module Mailer
-    def Mailer.send_to_user user, message, subject, fr_mail
+    def Mailer.send_to_user(user, message, subject, fr_mail)
       to_mail = user.email
 
       mail = Mail.new do
