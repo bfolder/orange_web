@@ -8,7 +8,7 @@
     </form>
   <ul id="task-block">
     <% tasks.each do |task|%>
-        <li id="<%= task.id %>" class="task <%= if task.done then "checked" end %>"><span class="checkbox"></span><h3><%= task.title %></h3></li>
+        <li id="<%= task.id %>" class="task <%= if task.done then "checked" end %>"><span class="checkbox <%= if task.done then "checkedbox" end %>"></span><h3><%= task.title %></h3></li>
     <% end %>
   </ul>
    <div id="footer">© 2012 <a href="http://www.boxedfolder.com" title="boxedfolder.com">boxedfolder.com</a> <span><a href="mailto:mail@boxedfolder.com" title="Contact">Contact</a></span></div>

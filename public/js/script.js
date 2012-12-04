@@ -14,13 +14,29 @@ $(function() {
     });
 
     $(".checkbox").click(function(){
-        var isDone = "off";
-        var id = $("this").parentNode.parentNode.id;
+        var isDone = "on";
+        var id = this.parentNode.id;
+
+        if($(this).hasClass("checkedbox"))
+        {
+            isDone = "off";
+            $(this).removeClass("checkedbox");
+            $(this).parent().removeClass("checked")
+            $(this).parent().fadeTo(250, 1.0);
+        }
+        else
+        {
+            $(this).addClass("checkedbox");
+            $(this).parent().addClass("checked")
+            $(this).parent().fadeTo(250, 0.25);
+        }
+
         $.ajax({
             type: "PUT",
             url: id,
             data: {done: isDone}
         });
+
     });
     $("#task-block").disableSelection();
 });

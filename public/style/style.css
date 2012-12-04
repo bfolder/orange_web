@@ -266,7 +266,7 @@ input.submit:hover {
     font-weight: normal;
     font-size: 15px;
     white-space: nowrap;
-    width: 350px;
+    width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-left: 35px;
@@ -275,8 +275,8 @@ input.submit:hover {
 .checked {
     opacity: 0.25;
     color: black;
-    filter:alpha(opacity=35);
-    filter: “alpha(opacity=35)”;
+    filter:alpha(opacity=25);
+    filter: “alpha(opacity=25)”;
 }
 
 .ui-sortable-helper {
@@ -289,6 +289,7 @@ input.submit:hover {
     height: 30px;;
     width: 30px;
     background-image: url("../images/no-check.png");
+    cursor: default;
 }
 
 .checkedbox {

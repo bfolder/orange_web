@@ -85,8 +85,11 @@ module TaskController
       return
     end
 
-    position =  Integer(params[:position])
-    task.move(position) if position && position != task.position
+    if params[:position]
+      position =  Integer(params[:position])
+      task.move(position) if position && position != task.position
+    end
+
     task.done = params[:done] == 'on'
     task.title = params[:title] if(params[:title])
     task.updated_at = Time.now
