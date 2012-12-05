@@ -14,7 +14,7 @@ $(function() {
     });
 
     $(".clear-checked").click(function(){
-        $(".checked").fadeOut(150, function(){
+        $(".checked").hide(150, function(){
             $.ajax({
                 type: "GET",
                 url: "clear/"
@@ -23,7 +23,7 @@ $(function() {
     });
 
     $(".remover").click(function(){
-        $(this).parent().fadeOut(150, function(){
+        $(this).parent().hide(150, function(){
             var id = $(this).attr('id');
             $.ajax({
                 type: "DELETE",
