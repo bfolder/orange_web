@@ -14,10 +14,20 @@ $(function() {
     });
 
     $(".clear-checked").click(function(){
-        $(".checked").slideUp().fadeOut(function(){
+        $(".checked").fadeOut(150, function(){
             $.ajax({
                 type: "GET",
                 url: "clear/"
+            });
+        });
+    });
+
+    $(".remover").click(function(){
+        $(this).parent().fadeOut(150, function(){
+            var id = $(this).attr('id');
+            $.ajax({
+                type: "DELETE",
+                url: id
             });
         });
     });

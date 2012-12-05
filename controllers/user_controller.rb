@@ -91,7 +91,7 @@ module UserController
       session[:user] = user.hashed_password
       redirect "/"
     else
-      session[:flash_error] = "Signup failed, please try again."
+      session[:flash_error] = "Sign up failed, please try again."
       redirect "/"
     end
   end
