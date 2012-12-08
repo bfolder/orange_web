@@ -45,6 +45,14 @@ module UserController
     app.get '/signup/' do
       erb :signup
     end
+
+    app.get '/forgot/' do
+      erb :forgot
+    end
+
+    app.post '/reset/' do
+      reset_password(params[:email])
+    end
   end
 
   ## Database Methods ##
@@ -75,7 +83,7 @@ module UserController
     end
 
     salt = Utils::Hasher.generate_salt
-    hashed_password = Utils::Hasher.hash_password password, salt
+    hashed_password = Utils::Hasher.hash_password(password, salt)
     user = User.new(
       :name => username,
       :email => email,
@@ -86,7 +94,7 @@ module UserController
     )
 
     if user.save
-      Utils::Mailer.send_to_user user, "Hello #{user.name}. You successfully signed up to Orange.", "Your Orange account", settings.email if settings.send_signup_mail
+      Utils::Mailer.send_to_user(user, "Hello #{user.name}. You successfully signed up to Orange.", "Your Orange account", settings.email) if settings.send_signup_mail
       session[:flash] = "Signed up successfully."
       session[:user] = user.hashed_password
       redirect "/"
@@ -125,6 +133,37 @@ module UserController
     end
 
     flash
+  end
+
+  def reset_password(email)
+    unless email
+      error = "No email address provided."
+    end
+
+    user =  User.first(:email => email)
+
+    unless user
+      error = "There is no registered user with this email address."
+    end
+
+    if error
+      session[:flash_error] = error
+      redirect '/forgot/'
+    else
+      new_password = User.generate_random_password
+      salt = Utils::Hasher.generate_salt
+      hashed_password = Utils::Hasher.hash_password(new_password, salt)
+      user.salt = salt
+      user.hashed_password = hashed_password
+      user.updated_at = Time.now
+      user.save
+      Utils::Mailer.send_to_user(user, "Hello #{user.name}. You new password is #{new_password}.", "Orange account password reset", settings.email)
+
+      session[:flash] = "Please check your mailbox for the new password."
+      redirect '/'
+    end
+
+
   end
 
   def logged_in?

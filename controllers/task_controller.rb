@@ -5,8 +5,8 @@ module TaskController
     app.get '/tasks/' do
       redirect '/' unless logged_in?
 
-      user = User.first :hashed_password => session[:user]
-      tasks = Task.all :user => user, :order => [:position]
+      user = User.first(:hashed_password => session[:user])
+      tasks = Task.all(:user => user, :order => [:position])
       erb :index, {:locals => {:tasks => tasks}}
     end
 

@@ -306,3 +306,20 @@ input.submit:hover {
     background-image: url("../images/delete.png");
     cursor: pointer;
 }
+
+#forgot {
+    position: absolute;
+    left: 112px;
+    bottom: 34px;
+    font-size: 12px;
+}
+
+fieldset a {
+    font-family: "Aller", "Helvetica", "Arial", "Verdana", sans-serif;
+    font-weight: normal;
+    color: #b7b7bd;
+}
+
+fieldset {
+    position: relative;
+}

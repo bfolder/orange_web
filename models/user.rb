@@ -26,4 +26,9 @@ class User
   def formatted_name
     "#{name} <#{email}>"
   end
+
+  def self.generate_random_password
+    random = Random.new
+    Array.new(8){random.rand(33...126).chr}.join
+  end
 end
