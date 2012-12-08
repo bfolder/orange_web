@@ -100,10 +100,14 @@ module TaskController
       session[:flash_error] = "Couldn't find task. Try again later."
       return
     end
+    task.move(:lowest)
     task.destroy
   end
 
   def clear_tasks
-    Task.all(:conditions => {:done => true}).each(&:destroy)
+    Task.all(:conditions => {:done => true}).each do |task|
+      task.move(:lowest)
+      task.destroy
+    end
   end
 end
