@@ -74,7 +74,7 @@ module UserController
       redirect '/signup/'
     end
 
-    salt = generate_salt
+    salt = Utils::Hasher.generate_salt
     hashed_password = Utils::Hasher.hash_password password, salt
     user = User.new(
       :name => username,
@@ -129,10 +129,5 @@ module UserController
 
   def logged_in?
     session[:user] != nil
-  end
-
-  def generate_salt
-    random = Random.new
-    Array.new(User.salt.length){random.rand(33...126).chr}.join
   end
 end

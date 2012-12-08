@@ -12,6 +12,9 @@ require './controllers/user_controller'
 # Setup database (sqlite 3 in this case)
 #DataMapper::Logger.new(STDOUT, :debug)
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/orange.sqlite3")
+configure :test do
+  DataMapper.setup(:default, "sqlite::memory:")
+end
 
 # Load model classes
 require './models/task'
