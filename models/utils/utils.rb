@@ -5,7 +5,7 @@ module Utils
 # This Hasher module - hashes user passwords
   module Hasher
     def Hasher.hash_password(password, salt)
-      Digest::SHA2.hexdigest password + salt
+      Digest::SHA2.hexdigest(password + salt)
     end
 
     def Hasher.generate_salt
