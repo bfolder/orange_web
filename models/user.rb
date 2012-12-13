@@ -21,7 +21,7 @@ class User
   end
 
   def formatted_name
-    "#{name} <#{email}>"
+    "#{@name} &lt;#{@email}&gt;"
   end
 
   def self.generate_random_password

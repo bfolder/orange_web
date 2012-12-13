@@ -42,6 +42,16 @@ module UserController
       redirect '/'
     end
 
+    app.post '/user/edit/' do
+      edit_user(params)
+    end
+
+    app.get '/account/' do
+      redirect '/' unless logged_in?
+      user = User.first(:hashed_password => session[:user])
+      erb :account, :locals => {:user => user}
+    end
+
     app.get '/signup/' do
       erb :signup
     end
@@ -58,10 +68,10 @@ module UserController
   ## Database Methods ##
   def create_user(params)
     password = params[:password]
-    password_again = params[:password_again]
+    password_check = params[:password_check]
     username = params[:username]
     email = params[:email]
-    flash = validate_signup(username, password, password_again, email)
+    flash = validate_signup(username, password, password_check, email)
 
     unless flash.empty?
       session[:flash_error] = flash
@@ -104,15 +114,63 @@ module UserController
     end
   end
 
+  def edit_user(params)
+    user =  User.first(:hashed_password => session[:user])
+    email = params[:email]
+    password = params[:password]
+    password_check = params[:password_check]
+    error = []
+
+    if password.length == 0 && email.length == 0 && password_check.length == 0
+      error << "No changes saved."
+    end
+
+    if password.length > 0 && !password.length.between?(5, 20)
+      error << "Your password must be 5 to 20 characters long."
+    end
+
+    if (password.length > 0 && !password_check) || (password != password_check)
+      error << "Passwords do not match. Please try again."
+    end
+
+    if email.length > 0 && !(email =~ /\A[\w\._%-]+@[\w\.-]+\.[a-zA-Z]{2,4}\z/)
+      error << "Please provide a valid email address."
+    end
+
+    if email == user.email
+      error << "Old and new email address shouldn't be the same."
+    end
+
+    unless error.empty?
+      session[:flash_error] = error
+      redirect '/account/'
+    else
+      if email.length > 0 then user.email = email end
+      if password.length > 0
+        salt = Utils::Hasher.generate_salt
+        hashed_password = Utils::Hasher.hash_password(password, salt)
+        user.salt = salt
+        user.hashed_password = hashed_password
+        session[:user] = hashed_password
+      end
+
+      user.updated_at = Time.now
+      user.save
+
+      session[:flash] = "Account information updated."
+      redirect '/account/'
+    end
+  end
+
   ## Helpers ##
-  def validate_signup(username, password, password_again, email)
+  def validate_signup(username, password, password_check, email)
     flash = []
 
     if !password || password.length == 0
       flash << "Please provide a password."
     end
 
-    if password != password_again
+    if password != password_check
       flash << "Passwords do not match. Please try again."
     end
 
@@ -162,8 +220,6 @@ module UserController
       session[:flash] = "Please check your mailbox for the new password."
       redirect '/'
     end
-
-
   end
 
   def logged_in?
