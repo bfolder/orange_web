@@ -11,45 +11,33 @@ module TaskController
     end
 
     app.post '/tasks/' do
-      return unless logged_in?
-
-      create_task(params)
+      create_task(params) if logged_in?
       redirect '/'
     end
 
     app.put '/tasks/:id' do
-      redirect '/' unless logged_in?
-
-      update_task(params)
+      update_task(params) if logged_in?
       redirect '/'
     end
 
     app.delete '/tasks/:id' do
-      redirect '/' unless logged_in?
-
-      delete_task(params)
+      delete_task(params) if logged_in?
       redirect '/'
     end
 
     # Use these to 'fake' PUT / DELETE methods if not available
     app.post '/tasks/update/:id' do
-      redirect '/' unless logged_in?
-
-      update_task(params)
+      update_task(params) if logged_in?
       redirect '/'
     end
 
     app.get '/tasks/delete/:id' do
-      redirect '/' unless logged_in?
-
-      delete_task(params)
+      delete_task(params) if logged_in?
       redirect '/'
     end
 
     app.get '/tasks/clear/' do
-      return unless logged_in?
-
-      clear_tasks
+      clear_tasks if logged_in?
       redirect '/'
     end
   end
@@ -72,6 +60,7 @@ module TaskController
     end
     user = User.first :hashed_password => session[:user]
     user.tasks << task
+    task.save
     task.move(:top)
     task.save
   end
