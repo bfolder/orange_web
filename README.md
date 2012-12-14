@@ -1,11 +1,12 @@
 ### Readme
 
-Orange is a simple task list written in Ruby.
-It's based on Sinatra and utilizes Data Mapper for persistence.
-
+Orange is a is a simple task list (web) application with multi-user support.
+It's written in Ruby, based on Sinatra and utilizes Data Mapper for persistence. 
 There is also an iOS client available [here](https://github.com/bfolder/orange_ios/).
 
 Run it on your own server or feel free to use it as a base for your own apps.
+
+Please report bugs and leave comments.
 
 ### Screenshot
 
