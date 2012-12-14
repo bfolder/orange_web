@@ -115,31 +115,11 @@ module UserController
   end
 
   def edit_user(params)
-    user =  User.first(:hashed_password => session[:user])
     email = params[:email]
     password = params[:password]
     password_check = params[:password_check]
-    error = []
-
-    if password.length == 0 && email.length == 0 && password_check.length == 0
-      error << "No changes saved."
-    end
-
-    if password.length > 0 && !password.length.between?(5, 20)
-      error << "Your password must be 5 to 20 characters long."
-    end
-
-    if (password.length > 0 && !password_check) || (password != password_check)
-      error << "Passwords do not match. Please try again."
-    end
-
-    if email.length > 0 && !(email =~ /\A[\w\._%-]+@[\w\.-]+\.[a-zA-Z]{2,4}\z/)
-      error << "Please provide a valid email address."
-    end
-
-    if email == user.email
-      error << "Old and new email address shouldn't be the same."
-    end
+    user =  User.first(:hashed_password => session[:user])
+    error = validate_editing(user, password, password_check, email)
 
     unless error.empty?
       session[:flash_error] = error
@@ -188,6 +168,32 @@ module UserController
 
     if !password || !password.length.between?(5, 20)
       flash << "Your password must be 5 to 20 characters long."
+    end
+
+    flash
+  end
+
+  def validate_editing(user, password, password_check, email)
+    flash = []
+
+    if password.length == 0 && email.length == 0 && password_check.length == 0
+      flash << "No changes saved."
+    end
+
+    if password.length > 0 && !password.length.between?(5, 20)
+      flash << "Your password must be 5 to 20 characters long."
+    end
+
+    if (password.length > 0 && !password_check) || (password != password_check)
+      flash << "Passwords do not match. Please try again."
+    end
+
+    if email.length > 0 && !(email =~ /\A[\w\._%-]+@[\w\.-]+\.[a-zA-Z]{2,4}\z/)
+      flash << "Please provide a valid email address."
+    end
+
+    if email == user.email
+      flash << "Old and new email address shouldn't be the same."
     end
 
     flash
