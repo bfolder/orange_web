@@ -104,7 +104,7 @@ module UserController
     )
 
     if user.save
-      Utils::Mailer.send_to_user(user, "Hello #{user.name}. You successfully signed up to Orange.", "Your Orange account", settings.email) if settings.send_signup_mail
+      Utils::Mailer.send_to_user(user, "Hello #{user.name}. You successfully signed up to Orange.", "Your Orange account", settings)
       session[:flash] = "Signed up successfully."
       session[:user] = user.hashed_password
       redirect "/"
@@ -221,7 +221,7 @@ module UserController
       user.hashed_password = hashed_password
       user.updated_at = Time.now
       user.save
-      Utils::Mailer.send_to_user(user, "Hello #{user.name}. You new password is #{new_password}.", "Orange account password reset", settings.email)
+      Utils::Mailer.send_to_user(user, "Hello #{user.name}. You new password is #{new_password}.", "Orange account password reset", settings)
 
       session[:flash] = "Please check your mailbox for the new password."
       redirect '/'

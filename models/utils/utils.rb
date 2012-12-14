@@ -16,8 +16,9 @@ module Utils
 
 # Check if this works on your server
   module Mailer
-    def Mailer.send_to_user(user, message, subject, fr_mail)
+    def Mailer.send_to_user(user, message, subject, settings)
       to_mail = user.email
+      fr_mail = settings.email
 
       mail = Mail.new do
         from fr_mail
@@ -25,7 +26,7 @@ module Utils
         subject subject
         body message
       end
-      mail.deliver
+      mail.deliver if settings.send_notifications
     end
   end
 

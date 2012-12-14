@@ -9,10 +9,11 @@ require 'logger'
 require './controllers/task_controller'
 require './controllers/user_controller'
 
-# Setup database (sqlite 3 in this case)
+# Setup database (sqlite or something else defined in DATABASE_URL)
 #DataMapper::Logger.new(STDOUT, :debug)
 DataMapper.setup(:default, ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/db/orange.sqlite3")
 
+# Test with in-memory store
 configure :test do
   DataMapper.setup(:default, "sqlite::memory:")
 end
@@ -35,7 +36,7 @@ class Orange < Sinatra::Base
   set :views, './views/'
   set :public_folder, './public/'
   set :email, 'admin@orangeapp.com'
-  set :send_signup_mail, true
+  set :send_notifications, false
 
   ## Logging ##
   before do
