@@ -38,10 +38,15 @@ class Orange < Sinatra::Base
   set :email, 'admin@orangeapp.com'
   set :send_notifications, false
 
-  ## Logging ##
+  configure :development do
+    enable :logging
+  end
+
+  ## Logging & Stuff ##
   before do
+    return unless settings.logging
     puts "Params: #{params}"
-    #puts "Session: #{session}"
+    puts "Session: #{session}"
   end
 
   ## Routes ##
