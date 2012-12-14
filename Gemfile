@@ -7,13 +7,14 @@ gem 'data_objects'
 gem 'mail'
 
 group :production do
-    gem "pg"
-    gem "dm-postgres-adapter"
+  gem 'thin'
+  gem "pg"
+  gem "dm-postgres-adapter"
 end
 
 group :development, :test do
-    gem "sqlite3"
-    gem "dm-sqlite-adapter"
+  gem "sqlite3"
+  gem "dm-sqlite-adapter"
 end
 
 group :test do
