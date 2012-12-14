@@ -1,12 +1,20 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'do_sqlite3'
 gem 'data_mapper'
-gem 'dm-sqlite-adapter'
 gem 'dm-is-list'
 gem 'data_objects'
 gem 'mail'
+
+group :production do
+    gem "pg"
+    gem "dm-postgres-adapter"
+end
+
+group :development, :test do
+    gem "sqlite3"
+    gem "dm-sqlite-adapter"
+end
 
 group :test do
   gem 'rspec'
