@@ -4,7 +4,7 @@ require 'dm-core'
 require 'dm-validations'
 require 'dm-migrations'
 require 'logger'
-require 'json'
+require 'dm-serializer/to_json'
 
 # Load 'controllers'
 require './controllers/task_controller'
