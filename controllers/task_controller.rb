@@ -2,6 +2,8 @@
 module TaskController
   def self.included(app)
     ## Routes ##
+
+    ## HTML ##
     app.get '/tasks/' do
       redirect '/' unless logged_in?
 
@@ -40,6 +42,16 @@ module TaskController
       clear_tasks if logged_in?
       redirect '/'
     end
+  end
+
+  ## JSON ##
+  app.get '/tasks.json' do
+    redirect '/' unless logged_in?
+    content_type :json
+
+    user = User.first(:hashed_password => session[:user])
+    tasks = Task.all(:user => user, :order => [:position])
+    tasks.to_json
   end
 
   ## Helpers
