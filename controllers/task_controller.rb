@@ -10,11 +10,7 @@ module TaskController
       user = User.first(:hashed_password => session[:user])
       tasks = Task.all(:user => user, :order => [:position])
 
-      if request.content_type == 'application/json'
-        tasks.to_json
-      else
-        erb :index, {:locals => {:tasks => tasks}}
-      end
+      erb :index, {:locals => {:tasks => tasks}}
     end
 
     app.post '/tasks' do
