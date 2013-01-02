@@ -1,9 +1,9 @@
 <div id="wrap">
   <div id="content-box">
-    <h1 id="tasks">Account<span id="small-menu"><span class="small-menu-item"><a href="/tasks/">Tasks</a></span><span class="small-menu-item"><a href="/user/logout/">Logout</a></span></span></h1>
+    <h1 id="tasks">Account<span id="small-menu"><span class="small-menu-item"><a href="/tasks">Tasks</a></span><span class="small-menu-item"><a href="/user/logout/">Logout</a></span></span></h1>
     <h2><%= user.formatted_name %></h2><br />
     <%= display_flashes %>
-    <form method="post" action="../user/edit/" id="login">
+    <form method="post" action="../user/edit" id="login">
       <fieldset>
         <label for="username">Change email</label><input style="margin-bottom: 15px; border: 1px solid #d3d3d3;" class="input" name="email" size="40" /><br />
         <label for="password">Change password</label><input style="margin-bottom: 15px; border: 1px solid #d3d3d3;" class="input" name="password" size="40" type="password" /><br />

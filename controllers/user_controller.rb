@@ -4,22 +4,22 @@ require_relative '../models/user'
 module UserController
   def self.included(app)
     ## Routes ##
-    app.get '/user/signin/' do
+    app.get '/user/signin' do
       redirect '/' if logged_in?
       erb :signin
     end
 
-    app.get '/user/logout/' do
+    app.get '/user/logout' do
       session[:user] = nil
       session[:flash] = "You have logged out successfully."
       redirect '/'
     end
 
-    app.post '/user/create/' do
+    app.post '/user/create' do
       create_user(params)
     end
 
-    app.post '/user/auth/' do
+    app.post '/user/auth' do
       user = User.first(:name => params[:username])
 
       unless user
@@ -42,25 +42,25 @@ module UserController
       redirect '/'
     end
 
-    app.post '/user/edit/' do
+    app.post '/user/edit' do
       edit_user(params)
     end
 
-    app.get '/account/' do
+    app.get '/account' do
       redirect '/' unless logged_in?
       user = User.first(:hashed_password => session[:user])
       erb :account, :locals => {:user => user}
     end
 
-    app.get '/signup/' do
+    app.get '/signup' do
       erb :signup
     end
 
-    app.get '/forgot/' do
+    app.get '/forgot' do
       erb :forgot
     end
 
-    app.post '/reset/' do
+    app.post '/reset' do
       reset_password(params[:email])
     end
   end
@@ -75,21 +75,21 @@ module UserController
 
     unless flash.empty?
       session[:flash_error] = flash
-      redirect '/signup/'
+      redirect '/signup'
     end
 
     user = User.first(:name => username)
 
     if user
       session[:flash_error] = "That username has already been taken."
-      redirect '/signup/'
+      redirect '/signup'
     end
 
     user = User.first(:email => email)
 
     if user
       session[:flash_error] = "That email address is already in our database."
-      redirect '/signup/'
+      redirect '/signup'
     end
 
     salt = Utils::Hasher.generate_salt
@@ -123,7 +123,7 @@ module UserController
 
     unless error.empty?
       session[:flash_error] = error
-      redirect '/account/'
+      redirect '/account'
     else
       if email.length > 0 then user.email = email end
       if password.length > 0
@@ -138,7 +138,7 @@ module UserController
       user.save
 
       session[:flash] = "Account information updated."
-      redirect '/account/'
+      redirect '/account'
     end
   end
 
@@ -212,7 +212,7 @@ module UserController
 
     if error
       session[:flash_error] = error
-      redirect '/forgot/'
+      redirect '/forgot'
     else
       new_password = User.generate_random_password
       salt = Utils::Hasher.generate_salt

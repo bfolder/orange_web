@@ -17,7 +17,7 @@ $(function() {
         $(".checked").hide(150, function(){
             $.ajax({
                 type: "GET",
-                url: "clear/"
+                url: "clear"
             });
         });
     });

@@ -4,7 +4,7 @@ module TaskController
     ## Routes ##
 
     ## HTML ##
-    app.get '/tasks/' do
+    app.get '/tasks' do
       redirect '/' unless logged_in?
 
       user = User.first(:hashed_password => session[:user])
@@ -17,7 +17,7 @@ module TaskController
       end
     end
 
-    app.post '/tasks/' do
+    app.post '/tasks' do
       create_task(params) if logged_in?
       redirect '/'
     end
@@ -43,19 +43,9 @@ module TaskController
       redirect '/'
     end
 
-    app.get '/tasks/clear/' do
+    app.get '/tasks/clear' do
       clear_tasks if logged_in?
       redirect '/'
-    end
-    
-    ## JSON ##
-    app.get '/tasks.json' do
-      redirect '/' unless logged_in?
-      content_type :json
-
-      user = User.first(:hashed_password => session[:user])
-      tasks = Task.all(:user => user, :order => [:position])
-      tasks.to_json
     end
   end
   
