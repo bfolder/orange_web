@@ -42,18 +42,18 @@ module TaskController
       clear_tasks if logged_in?
       redirect '/'
     end
+    
+    ## JSON ##
+    app.get '/tasks.json' do
+      redirect '/' unless logged_in?
+      content_type :json
+
+      user = User.first(:hashed_password => session[:user])
+      tasks = Task.all(:user => user, :order => [:position])
+      tasks.to_json
+    end
   end
-
-  ## JSON ##
-  app.get '/tasks.json' do
-    redirect '/' unless logged_in?
-    content_type :json
-
-    user = User.first(:hashed_password => session[:user])
-    tasks = Task.all(:user => user, :order => [:position])
-    tasks.to_json
-  end
-
+  
   ## Helpers
   def task_warning(params)
     flash = "Couldn't find task. Try again later."
