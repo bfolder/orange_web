@@ -24,7 +24,7 @@ module UserController
 
       unless user
         session[:flash_error] = "User doesn't exist."
-        redirect "/"
+        redirect '/'
       end
 
       auth = user.auth(params[:password])
