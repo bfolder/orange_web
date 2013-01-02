@@ -53,9 +53,9 @@ class Orange < Sinatra::Base
   ## Routes ##
   get '/' do
     if logged_in?
-      redirect '/tasks/'
+      redirect '/tasks'
     else
-      redirect '/user/signin/'
+      redirect '/user/signin'
     end
   end
 
