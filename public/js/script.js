@@ -7,7 +7,7 @@ $(function() {
             var newIndex = ui.item.index();
             $.ajax({
                type: "PUT",
-               url: id,
+               url: "/" + id,
                data: {position: newIndex + 1}
             });
         }
@@ -17,7 +17,7 @@ $(function() {
         $(".checked").hide(150, function(){
             $.ajax({
                 type: "GET",
-                url: "clear"
+                url: "/clear"
             });
         });
     });
@@ -27,7 +27,7 @@ $(function() {
             var id = $(this).attr('id');
             $.ajax({
                 type: "DELETE",
-                url: id
+                url: "/" + id
             });
         });
     });
@@ -52,7 +52,7 @@ $(function() {
 
         $.ajax({
             type: "PUT",
-            url: id,
+            url: "/" + id,
             data: {done: isDone}
         });
 
