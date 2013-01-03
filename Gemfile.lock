@@ -112,7 +112,6 @@ DEPENDENCIES
   data_objects
   dm-is-list
   dm-postgres-adapter
-  dm-serializer
   dm-sqlite-adapter
   mail
   pg

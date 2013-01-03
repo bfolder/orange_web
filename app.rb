@@ -4,13 +4,12 @@ require 'dm-core'
 require 'dm-validations'
 require 'dm-migrations'
 require 'logger'
-require 'dm-serializer/to_json'
 
 # Load 'controllers'
 require './controllers/task_controller'
 require './controllers/user_controller'
 
-# Setup database (sqlite or something else defined in DATABASE_URL)
+# Setup database (sqlite or something else defined in ENV["DATABASE_URL"])
 #DataMapper::Logger.new(STDOUT, :debug)
 DataMapper.setup(:default, ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/db/orange.sqlite3")
 
