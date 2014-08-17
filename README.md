@@ -2,7 +2,6 @@
 
 Orange is a is a simple task list (web) application with multi-user support.
 It's written in Ruby, based on Sinatra and utilizes Data Mapper for persistence.
-[Here](http://orange.boxedfolder.com "Orange") is a preview running on Heroku.
 
 Run it on your own server or feel free to use it as a base for your own apps. 
 Please report bugs and leave comments.
